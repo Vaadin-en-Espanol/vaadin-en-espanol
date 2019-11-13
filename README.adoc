@@ -1,0 +1,57 @@
+= Vaadin en Español
+
+Este repositorio contiene documentación en Español sobre https://vaadin.com[Vaadin]. El contenido es mantenido y
+contribuído por usuarios de habla hispana e incluye traducciones y material original sobre Vaadin.
+
+== Contribuidores (orden cronológico)
+
+== Tabla de contenido
+
+== ¿Cómo contribuir?
+
+En el momento nos encontramos organizando el proyecto para facilitar contribuciones. Si deseas contribuir al proyecto,
+deja un mensaje en:
+
+- https://vaadin.com/forum/thread/17880448/documentacion-e-espanol
+
+=== Proceso
+
+. Haz un _fork_ de https://github.com/Vaadin-en-Espanol/vaadin-en-espanol[este repositorio] con tu cuenta de GitHub.
+. Crea un nuevo directorio en:
+    - `vaadin-en-espanol/tutoriales/` si estás traduciendo un https://vaadin.com/tutorials[tutorial].
+    - `vaadin-en-espanol/docs/` si estás traduciendo parte de la https://vaadin.com/docs[documentación].
+    - `vaadin-en-espanol/original/` si es contenido original.
+. Crea un nuevo archivo llamado `contenido.adoc` dentro del directorio creado en el paso anterior.
+. Escribe el contenido en el archivo creado en el paso anterior usando el formato
+https://asciidoctor.org/docs/asciidoc-writers-guide/[asciidoc].
+. Haz _commit_ y _push_ de los cambios a tu repositorio en GitHub.
+. Crea un _Pull Request_ a https://github.com/Vaadin-en-Espanol/vaadin-en-espanol[este repositorio].
+. Los revisores te darán indicaciones en caso de que sea necesario cambiar algo. Realiza los cambios y haz commit de
+nuevo.
+. Una vez aprobados los cambios, tu aporte será integrado y tu nombre agregado a la lista de contribuidores.
+
+=== Traducciones
+
+Antes de comenzar con una traducción, confirma que nadie está trabajando en ella en:
+
+- https://github.com/Vaadin-en-Espanol/vaadin-en-espanol/issues
+
+De la misma forma, antes de comenzar, crea un nuevo _issue_  con el nombre del artículo o tutorial que quieres
+traducir. Incluye un enlace al original en la descripción.
+
+En los repositorios con el contenido original encontrarás los archivos en formato asciidoc:
+
+- Tutoriales: https://github.com/vaadin-learning-center/learning-content/tree/development/tutorials
+- Documentación: https://github.com/vaadin/flow-and-components-documentation/tree/master/documentation
+
+Algunos puntos a tener en cuenta:
+
+- Usa _tú_ en ves de _usted_.
+- Mantén el formato.
+- No traduzcas palabras como _layout_, _listener_, o _push_. Usa el término en Inglés en _cursiva_ la primera vez que
+aparezca en el artículo y formato normal en las siguiente apariciones.
+
+=== Proyectos de ejemplo
+
+Si tu contenido (original o traducción) incluye proyectos con código fuente de ejemplo, contáctanos para crearlo bajo
+la organización https://github.com/Vaadin-en-Espanol[Vaadin en Español] en GitHub.
