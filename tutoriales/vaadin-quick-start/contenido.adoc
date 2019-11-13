@@ -33,7 +33,7 @@ Navegue a `http://localhost:8080[localhost:8080, rel="nofollow"]`, y debería ve
 
 Ahora estamos listos para comenzar a construir la aplicación.
 
-== Construyendo UIs con _components_ y _layouts_
+== Construyendo UIs con _components_ y layouts
 
 Abra `src/main/java/com/vaadin/example/MainView.java` en un editor de textos.
 
