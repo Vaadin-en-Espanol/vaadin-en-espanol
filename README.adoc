@@ -37,7 +37,7 @@ Antes de comenzar con una traducción, confirma que nadie está trabajando en el
 - https://github.com/Vaadin-en-Espanol/vaadin-en-espanol/issues
 
 De la misma forma, antes de comenzar, crea un nuevo _issue_  con el nombre del artículo o tutorial que quieres
-traducir. Incluye un enlace al original en la descripción.
+traducir y asígnatelo a ti mismo. Incluye un enlace al original en la descripción.
 
 En los repositorios con el contenido original encontrarás los archivos en formato asciidoc:
 
