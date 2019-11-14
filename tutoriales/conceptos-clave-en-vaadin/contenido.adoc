@@ -1,0 +1,703 @@
+= Conceptos clave en Vaadin
+
+_Traducido del https://vaadin.com/tutorials/vaadin-key-concepts[original en Inglés]._
+
+Este documento está destinado a desarrolladores que están aprendiendo Vaadin y desean ponerse al día rápidamente. Ofrece una visión general y rápida sobre los conceptos básicos y proporciona enlaces a documentación relevante para aprender más. También se puede usar como referencia al desarrollar aplicaciones con Vaadin.
+
+Si aún no tienes la aplicación Vaadin configurada, puedes descargar una en la https://vaadin.com/start[página de inicio].
+
+// NOTA: Escribir aplicaciones Vaadin es más divertido y productivo si tu entorno de desarrollo está configurado para mostrar los cambios automáticamente. Si necesitas ayuda para configurar tu entorno, http://vaadin.com/[TODO: consulta este tutorial sobre cómo configurar hotswap en proyectos de Vaadin].
+
+== Conceptos básicos
+
+=== 1. Todo es un componente
+¿Necesitas un botón? Escribe `new Button()`. ¿Necesitas un campo de texto? Escribe `new TextField()`.
+
+Crea tus propios comonentes de interface de usuario y vistas usando otros componentes existentes y agregándolos en _layouts_.
+
+Asocia los componentes a URLs marcándolos con `@Route("ruta")`.
+
+=== 2. Escucha eventos para que tu aplicación sea interactiva
+Agrega un _listener_ a un botón con el método `addClickListener()` o recibe ejecuta tu código cuando el usuario cambia el valor en componentes como `Select` usando el método `addValueChangeListener()`.
+
+Todos los componentes que permiten interacción con el usuario emiten eventos que puedes escuchar usando _listeners_.
+
+== Hola mundo
+Aquí hay una simple pero completa aplicación implementada con Vaadin.
+
+.`*MainView.java*`
+[source,java]
+----
+@Route("")
+public class VistaPrincipal extends VerticalLayout {
+  public VistaPrincipal() {
+    add(new H1("¡Hola Mundo!"));
+  }
+}
+----
+
+Vaadin utiliza un modelo de programación basado en componentes. En este ejemplo, nuestra aplicación es un componente que extiende uno de los _layouts_ básicos de Vaadin, `VerticalLayout`. En el constructor, agregamos un componente `H1` (corresponde a un _tag_ HTML` <h1> `) al layout para saludar al mundo entero.
+
+Finalmente, asociamos la vista con la URL correspondiente usando la anotación `@Route("")`. La cadena vacía aquí significa la raíz del contexto web de la aplicación.
+
+== Componentes
+Vaadin incluye una amplia biblioteca de componentes de interfaz de usuario y _layouts_ que puedes extender y mezclar con tus propios componentes para crear aplicaciones web.
+
+Puedes encontrar una https://vaadin.com/components[lista de todos los componentes en el sitio web de Vaadin].
+
+NOTE: Si estás utilizando alguno de los _starters_, tendrás acceso a todos los componentes sin ningún paso de instalación adicional. Las instrucciones de instalación para cada componente en el sitio web de Vaadin son para aquellos que están configurando un proyecto personalizado desde cero.
+
+=== Usando los componentes
+Comencemos instanciando un nuevo componente:
+
+[source,java]
+----
+Button button = new Button("Haz clic acá");
+button.setIcon(VaadinIcon.VAADIN_V.create());
+----
+
+En Vaadin, cada componente está representado por un objeto Java. Para usar un componente, crea una nueva instancia y configúrela. La forma más fácil de explorar la funcionalidad de los componentes es usando la opción de autocompletar en tu IDE e inspeccionar los métodos disponibles.
+
+Tener un componente por sí solo no es tan útil. Para construir algo más significativo, tenemos que crear _componer_ varios componentes que interactúen entre sí. Para hacer esto, necesitamos _layouts_.
+
+== Layouts
+Los _layouts_ son componentes especiales que pueden contener otros componentes y que determinan cómo se muestran en el navegador. Debido a que los _layouts_ son componentes en sí mismos, se pueden anidar para crear diseños más complejos.
+
+Los _layouts_ más comunes que encontrarás en aplicaciones Vaadin son:
+
+* https://vaadin.com/components/vaadin-ordered-layout/java-examples[HorizontalLayout y VerticalLayout]
+* Div
+* https://vaadin.com/components/vaadin-split-layout/java-examples[SplitLayout]
+* https://vaadin.com/components/vaadin-app-layout/java-examples[AppLayout]
+* https://vaadin.com/components/vaadin-form-layout/java-examples[FormLayout]
+
+=== VerticalLayout y HorizontalLayout
+https://vaadin.com/components/vaadin-ordered-layout/java-examples[`VerticalLayout` y` HorizontalLayout`] son ​​los caballos de batalla de la mayoría de las aplicaciones de Vaadin. Como su nombre lo indica, estos layouts colocan sus componentes hijos verticalmente uno encima del otro u horizontalmente uno al lado del otro.
+
+Por defecto, los layouts son tan grandes como su contenido y agregan espacio entre los componentes para que el layout sea más natural de leer y usar. El espacio puede activarse o desactivarse con `setPadding(false)` para el espacio alrededor del layout o `setSpacing (false)` para el espacio entre los componentes.
+
+Un requisito frecuente es expandir un componente para usar todo el espacio que otros componentes no necesiten. Esto se puede lograr con el método `expand(componente)` en el layout.
+
+El siguiente es un ejemplo de como aplicar los conceptos explicados previamente para construir un layout de aplicación típico. En este ejemplo, estamos estableciendo anchos y altos a través de Java. También puedes hacerlo a través de CSS como lo cubriremos más adelante en esta guía.
+
+.`*BasicLayoutView.java*`
+[source,java]
+----
+@Route("")
+public class BasicLayoutView extends VerticalLayout {
+
+ public BasicLayoutView() {
+   // Instantiate layouts
+   HorizontalLayout header = new HorizontalLayout();
+   VerticalLayout navBar = new VerticalLayout();
+   VerticalLayout content = new VerticalLayout();
+   HorizontalLayout center = new HorizontalLayout();
+   HorizontalLayout footer = new HorizontalLayout();
+
+   // Configure layouts
+   setSizeFull();
+   setPadding(false);
+   setSpacing(false);
+   header.setWidth("100%");
+   header.setPadding(true);
+   center.setWidth("100%");
+   navBar.setWidth("200px");
+   content.setWidth("100%");
+   footer.setWidth("100%");
+   footer.setPadding(true);
+
+   // Compose layout
+   center.add(navBar, content);
+   center.setFlexGrow(1, navBar);
+   add(header, center, footer);
+   expand(center);
+ }
+}
+----
+
+image::vaadin-quickstart-basic-layouts.png[Layout básico con encabezado, barra de navegación y pie de página usando HorizontalLayout y VerticalLayout]
+
+NOTE: Los layouts HorizontalLayout y VerticalLayout no son adecuados para diseños web adaptables (o responsivos). Estos layouts no ajustan su contenido si el _viewport_ se estrecha demasiado. Para esto se requiere algo de CSS.
+
+=== Div
+El componente `Div` es el más flexible de todos los layouts, pero también requiere que manejes todo el posicionamiento a través de CSS. Podemos utilizar https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox[flexbox] para lograr un diseño web adaptable a diferentes tamaños del _viewport_.
+
+image::vaadin-quickstart-flex-layout.png[Diseño adaptable con un encabezado, barra de navegación y pie de página.]
+
+Cuando usamos CSS para diseñar componentes, necesitamos definir clases CSS para todos los componentes. También necesitamos agregar una anotación `@StyleSheet` para cargar el archivo CSS.
+
+.`*DivLayoutView.java*`
+[source, java]
+----
+@Route("div")
+@StyleSheet("frontend://styles/div-layout-styles.css")
+public class DivLayoutView extends Div {
+
+  public DivLayoutView() {
+    // Instantiate layouts
+    HorizontalLayout header = new HorizontalLayout();
+    VerticalLayout navBar = new VerticalLayout();
+    VerticalLayout content = new VerticalLayout();
+    Div center = new Div();
+    HorizontalLayout footer = new HorizontalLayout();
+
+    // Configure layouts
+    setSizeFull();
+    header.setPadding(true);
+    footer.setPadding(true);
+    addClassName("main-view");
+    header.addClassName("header");
+    navBar.addClassName("navbar");
+    center.addClassName("center");
+    content.addClassName("content");
+    footer.addClassName("footer");
+
+    // Compose layout
+    center.add(navBar, content);
+    add(header, center, footer);
+  }
+}
+----
+
+Si tu proyecto es una aplicación web, coloca el archivo CSS en el directorio `/frontend/styles/`. Si es un add-on para Vaadin, en `/src/main/resources/META-INF/resources/frontend/styles/`.
+
+.`*div-layout-styles.css*`
+[source,css]
+----
+.main-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.navbar {
+  flex: 1;
+  min-width: 200px;
+}
+
+.content {
+  flex: 4;
+  min-width: 500px;
+}
+----
+
+Dependiendo de tu experiencia o conocimiento en desarrollo de aplicaciones web, puedes encontrar este enfoque más limpio que la forma programática anterior. Si trabajas con diseñadores web en tu equipo, el layout basado en CSS será más fácil de configurar para ellos ya que no tienen que tocar código Java.
+
+TIP: Vaadin tiene un _wrapper_ Java para flexbox llamado `FlexLayout`. Este te permite establecer los mismos atributos de flexbox usando Java en lugar de tener un archivo CSS separado.
+
+=== Layouts declarativos
+A veces puede resultar más conveniente definir un layout de forma declarativa en HTML. Vaadin soporta este caso a través de la API de plantillas (Template API).
+
+Los layouts declarativos y las plantillas se consideran un tema más avanzado. http://vaadin.com/docs/flow/polymer-templates/tutorial-template-basic.html[Puedes obtener más información sobre la creación de layouts declarativos en la documentación].
+
+
+== Escuchando eventos
+Vaadin es un _framework_ basado en eventos. Cualquier componente con el que un usuario pueda interactuar emitirá eventos que puedes escuchar. Un evento típico al que necesitarás escuchar es el evento `clic` emitido por un `Button`.
+
+[source,java]
+----
+Button button = new Button("Click me");
+button.addClickListener(click -> {
+  Notification.show("Thanks for clicking!");
+});
+----
+
+En este ejemplo, cuando el usuario hace clic en el botón, mostramos una notificación en la pantalla.
+
+TIP: Puedes explorar los diferentes tipos de _listeners_ disponibles en los componentes mirando los métodos `add*Listener` usando la opción de autocompletar sobre el componente que estes utilizando.
+
+== Crear componentes
+Hasta ahora, solo hemos visto el uso de componentes incluídos en Vaadin.
+
+Cuando desarrolles tus propias aplicaciones Vaadin, a menudo tendrás que crear tus propios componentes para encapsular partes complejas del sistema en componentes reutilizables. Esto forma la base del modelo de programación basado en componentes que usa Vaadin y la mayoría de los frameworks modernos.
+
+== Crear componentes a través de composición
+La forma más frequente de crear un nuevo componente es crear una composición de componentes existentes con una API adecuada para lo que está creando.
+
+Veamos un ejemplo simple de un componente que muestra una tarjeta comercial.
+
+.`*BusinessCard.java*`
+[source,java]
+----
+public class BusinessCard extends VerticalLayout {
+  private Span name = new Span();
+  private Span title = new Span();
+
+  public BusinessCard() {
+    add(name, title);
+  }
+
+  public void setName(String n) {
+    name.setText(n);
+  }
+
+  public void setTitle(String t) {
+    title.setText(t);
+  }
+}
+----
+
+Una vez que hemos creado este componente, podemos importarlo y usarlo en nuestra aplicación:
+
+.`*ComponentView.java*`
+[source,java]
+----
+@Route("component")
+public class ComponentView extends VerticalLayout {
+
+  public ComponentView() {
+    BusinessCard businessCard = new BusinessCard();
+    businessCard.setName("Marcus");
+    businessCard.setTitle("Computer code maker");
+
+    add(businessCard);
+  }
+}
+----
+
+NOTE: Aunque crear composiciones extendiendo un layout es común, tiene un inconveniente: se expone toda la API del componente extendido. Puede que esto no sea un problema en tu proyecto, pero si está creando un componente que se será ampliamente reutilizado y no deseas que las personas jueguen con las partes internas, puedes forzar una encapsulación más fuerte con `Composite`.
+
+.`*BusinessCard.java*`
+[source,java]
+----
+public class BusinessCard extends Composite<VerticalLayout> {
+  private Span name = new Span();
+  private Span title = new Span();
+
+  public BusinessCard() {
+    getContent().add(name, title);
+  }
+
+  public void setName(String n) {
+    name.setText(n);
+  }
+
+  public void setTitle(String t) {
+    title.setText(t);
+  }
+}
+----
+
+En esta segunda versión, estamos ocultando el hecho de que estamos usando internamente un `VerticalLayout`, exponiendo solo los métodos `setName` y `setTitle` como API pública. Vaadin creará internamente un `VerticalLayout`, que podemos obtener usando `getContent()`. Los componentes utilizados como base de la composición (el parámetro de la clase `Composite`) deben tener un constructor sin argumentos para que Vaadin pueda instanciarlos.
+
+== Crear componentes con Vaadin Designer
+http://vaadin.com/designer[Vaadin Designer] es una herramienta que te permite crear componentes y vistas con una interfaz de _arrastrar y soltar_ en lugar de código. Puede ser una herramienta poderosa cuando necesitas crear muchas vistas o formularios grandes.
+
+video::2h75rbKRSbg[youtube]
+
+Puedes usar los componentes creados por Vaadin Designer desde tu código como lo harías con cualquier otro componente. También puedes usar los componentes que has codificado a mano en Vaadin Designer.
+
+== Interactuando con eventos JavaScript y nodos DOM
+En algunos casos, puedes necesitar construir un componente que no se puede implementar a partir de componentes existentes.
+
+Vaadin está diseñado para ser fácilmente extensible y ayudar en situaciones como esta. Al usar la API de Elementos (Element API), puedes obtener acceso a eventos, atributos y propiedades al nivel DOM.
+
+Como ejemplo, escuchemos un evento `mouseover` y mostrémos un mensaje en la consola del navegador web:
+
+[source,java]
+----
+businessCard.getElement().addEventListener("mouseover", e -> {
+  System.out.println("'mouseover' event happened");
+});
+----
+
+Puedes leer más sobre http://vaadin.com/docs/flow/creating-components/tutorial-component-events.html[eventos de JavaScript] y http://vaadin.com/docs/flow/creating-components/tutorial-component-basic.html[atributos y propiedades de elementos HTML] en la documentación.
+
+
+== Creando componentes JavaScript personalizados
+También puedes escribir o integrar componentes de intefaz de usuario completamente personalizados en Vaadin. Estos son temas más avanzados y se cubren con más detalle en la documentación:
+
+Lee más sobre la http://vaadin.com/docs/flow/web-components/integrating-a-web-component.html[integración de componentes web en Vaadin].
+
+Lee más sobre la http://vaadin.com/docs/flow/importing-dependencies/tutorial-importing.html[carga de archivos JavaScript] y http://vaadin.com/docs/flow/creating-components/tutorial-component-basic.html[creación de componentes con la Element API].
+
+== Formularios y enlace de datos
+El enlace de datos (data binding) desde objetos a componentes de interfaz de usuario es una de las funciones centrales en la mayoría de las aplicaciones. Vaadin tiene una potente API de enlace de datos que te permite crear cualquier tipo de formulario que puedas imaginar.
+
+La API Vaadin `Binder` admite la validación de campos individuales y la validación de campos cruzados de todo el formulario. También puedes definir conversiones entre el valor que muestra al usuario y el valor que se guarda en el objeto.
+
+=== Configuración de enlace de datos
+La clase `Binder` funciona con objetos Java estándar como modelo de datos. Permite vincular cualquier propiedad (getter/setter) a un campo del formulario.
+
+La clase `Binder` admite enlace de datos unidireccional (`readBean(modelo)`) y bidireccional (`setBean(modelo`). Lee la sección sobre _salvando datos_ para aprender cómo obtener el valor desde un `Binder` al usar enlace de datos unidireccional.
+
+.`*FormView.java*`
+[source,java]
+----
+@Route("forms")
+public class FormView extends FormLayout {
+
+  public FormView() {
+    Person model = new Person();
+
+    TextField firstNameField = new TextField("First Name");
+    Binder<Person> binder = new Binder<>(Person.class);
+
+    binder.forField(firstNameField).bind(Person::getFirstName, Person::setFirstName);
+
+    // One-way data binding
+    // binder.readBean(model);
+
+    // Two-way data binding
+    binder.setBean(model);
+  }
+}
+----
+
+=== Validando campos de entrada
+Al crear formularios, la mayoría de las veces se debe validar que la información que recibimos es correcta. En Vaadin, esto se hace agregando un `Validator` al enlace.
+
+[source,java]
+----
+binder.forField(firstNameField)
+  .asRequired()
+  .withValidator(name -> name.equals("Marcus"), "Your name should be Marcus")
+  .bind(Person::getFirstName, Person::setFirstName);
+----
+
+Aquí hacemos que el campo de entrada sea obligatorio y requerimos que el valor de entrada sea igual a "Marcus". Puedes agregar tantos validadores como desees. Estos se ejecutarán en el orden en que los definas.
+
+http://vaadin.com/docs/flow/binding-data/tutorial-flow-components-binder-validation.html[Lea más sobre validación de campos] y http://vaadin.com/docs/flow/binding-data/tutorial-flow-components-binder-beans.html[cómo usar validaciones JSR 303 Bean Validation en los campos de IU].
+
+
+=== Conversión entre valores de presentación y modelo
+Si el tipo de datos subyacente no coincide con el tipo de datos del componente en la interfaz de usuario, debes agregar un convertidor al enlace. En el siguiente ejemplo, queremos vincular un `TextField` (`String`) a un campo de datos `int`, por lo que debemos agregar un `StringToIntegerConverter`.
+
+[source, java]
+----
+binder.forField(ageField)
+  .asRequired()
+  .withConverter(new StringToIntegerConverter("Age must be a number"))
+  .withValidator(age -> age > 2, "How are you using a computer?")
+  .bind(Person::getAge, Person::setAge);
+----
+
+TIP: Hay varios convertidores integrados para realizar conversiones comunes. Busca `*Converter` usando la opción de autocompletar en tu IDE.
+
+https://vaadin.com/docs/flow/binding-data/tutorial-flow-components-binder-validation.html[Lee más sobre la conversión de entrada]
+
+=== Validación de formularios (validación de campos cruzados)
+De la misma manera que puedes agregar validaciones a campos individuales, también puedes agregar validadores al _binder_ para validar los campos entre sí. _La validación a nivel de binder solo se ejecutará si la validación a nivel de campo ha pasado_.
+
+También es necesario definir el layout en el que queremos que se muestren los mensajes de error.
+
+[source,java]
+----
+Div statusLabel = new Div();
+binder.setStatusLabel(statusLabel);
+binder.withValidator(person ->
+  person.getFirstName().equals("Marcus")
+  && person.getLastName().equals("Hellberg"),
+  "Ha! You have the correct first name, but wrong last name. Better luck next life!");
+----
+
+=== Salvando datos
+
+* Enlace de datos bidireccional *
+
+Si utilizas enlace de datos bidireccional (`setBean()`), el objeto enlazado contendrá los valores actualizados, siempre que pasen todas las validaciones a nivel de campo y de formulario.
+
+* Enlace de datos unidireccional *
+
+Si utilizas enlace de datos unidireccional (`readBean()`), debes leer el formulario manualmente.
+
+[source,java]
+----
+try {
+  Person saved = new Person();
+  binder.writeBean(saved);
+  // Persist saved bean
+} catch (ValidationException e){
+  //show errors to user
+}
+----
+
+Debes pasar una instancia de tu objeto de datos en el cual `Binder` escribirá los valores. Al usar enlace de datos unidireccional, generalmente no es deseable pasar el objeto original, ya que esto lo mutaría.
+
+https://vaadin.com/docs/flow/binding-data/tutorial-flow-components-binder-load.html[Lee más sobre cómo guardar y validar formularios]
+
+== Visualización y carga diferida de listas de datos
+En aplicaciones comerciales, especialmente, es común tratar con listas de datos. En Vaadin, esto se hace comúnmente con los componentes https://vaadin.com/components/vaadin-grid/java-examples[Grid] o https://vaadin.com/components/vaadin-combo-box/java-examples[ComboBox].
+
+=== Listas en memoria
+Si tienes una pequeña cantidad de elementos, digamos unos cientos, la forma más fácil de lidiar con estos es simplemente pasar una `Colección` Java al método `setItems`.
+
+NOTE: Vaadin ejecuta el código de la interfaz de usuario en el servidor. Una de las razones más comunes para los problemas de rendimiento es que los desarrolladores mantienen referencias a grandes colecciones en sus componentes. Si necesitas mostrar colecciones más extensas, usa la API alternativa `DataProvider` explicada más adelante.
+
+.`*GridView.java*`
+[source,java]
+----
+@Route("grid")
+public class GridView extends VerticalLayout {
+
+  public GridView(AddressBook addressBook) {
+    Grid<Person> grid = new Grid<>();
+    grid.addColumn(Person::getFirstName).setHeader("First Name");
+    grid.addColumn(Person::getLastName).setHeader("Last Name");
+    grid.addColumn(Person::getAge).setHeader("Age");
+
+    List<Person> everyone = addressBook.findAll();
+    grid.setItems(everyone);
+
+    add(grid);
+  }
+}
+----
+
+NOTE: El ejemplo anterior inyección de dependencias para _inyectar_ una instancia de `AddressBook` en el constructor. Lea más sobre el https://vaadin.com/docs/flow/spring/tutorial-spring-basic.html[uso de Vaadin con Spring], o el https://vaadin.com/docs/v13/flow/cdi/tutorial-cdi-basic.html[uso de Vaadin con CDI]. También puedes descargar proyectos preconfigurados en la https://vaadin.com/start[página de starters].
+
+=== Carga diferida con DataProvider
+En los casos en que tiene muchos datos, tiene sentido cargar solo lo que se necesita en un momento dado usando carga diferida (_lazy loading_). Componentes Vaadin como `Grid` y` ComboBox` hacen esto automáticamente si defines un `DataProvider`.
+
+En lugar de llamar a `setItems()` como lo hicimos en el fragmento anterior, usa `setDataProvider()`.
+
+.`*GridView.java*`
+[source,java]
+----
+grid.setDataProvider(DataProvider.fromCallbacks(
+    findQuery -> addressBook.find(
+      findQuery.getOffset(),
+      findQuery.getLimit()),
+    countQuery -> addressBook.count()));
+----
+
+El proveedor de datos (_data provider_) toma dos funciones _callback_. La primera, debe devolver un _stream_ de objetos con un desplazamiento y límite determinados (la página de datos visible). La segunda consulta devuelve el conteo total de objetos en el conjunto de datos. Esto es utilizado para mostrar barras de desplazamiento e información apropiadas en la interfaz de usuario.
+
+La experiencia del usuario final es la misma si usas `setItems()` o `setDataProvider()`. En ambos casos, el usuario puede desplazarse libremente por todo el conjunto de datos. La única diferencia es que cuando usas `DataProvider`, estás usando menos recursos en el servidor.
+
+https://vaadin.com/docs/flow/binding-data/tutorial-flow-data-provider.html[Lee acerca de cómo ordenar y filtrar datos cargados diferidamente con `DataProvider`.]
+
+== Vistas y navegación
+Vaadin viene con un sistema de navegación simple pero potente. Cualquier componente puede convertirse en un objetivo de navegación, y puede obtener fácilmente parámetros en la URL.
+
+=== Definiendo rutas
+Para definir una ruta, anota la clase con `@Rute`.
+
+.`*SampleView*`
+[source,java]
+----
+@Route
+public class SampleView extends VerticalLayout {
+
+  public SampleView() {
+    add(new H1("I am a sample view"));
+  }
+}
+----
+
+Por defecto, Vaadin determina la ruta en función del nombre de la clase, sin el sufijo `-View`. En este caso, la vista se correlacionaría con `/sample` en la URL.
+
+En muchos casos, es mejor ser explícito con las rutas. Para esto, se recomienda usar una constante para facilitar _refactorizaciones_ futuras.
+
+.`*SampleView*`
+[source,java]
+----
+@Route(SampleView.NAME)
+public class SampleView extends VerticalLayout {
+  public static final String NAME = "sample";
+
+  public SampleView() {
+    add(new H1("I am a sample view"));
+  }
+}
+----
+
+=== Navegando entre vistas
+
+Una vez que tengas una vista definida, puedes navegar a ella de dos maneras. Usando un enlace de enrutador, o mediante programación.
+
+Para usar un enlace de enrutador, agrega un componente `RouterLink` al layout.
+
+[source,java]
+----
+add(new RouterLink("Go to the sample view!", SampleView.class));
+----
+
+La ventaja de los enlaces de enrutador es que continuarán funcionando incluso si la sesión del servidor ha expirado.
+
+En algunos casos, necesitarás navegar a otra vista mediante programación. Por ejemplo, para llevar al usuario a otra vista después de completar un formulario. Para hacer esto, usa `ui.navigate()`.
+
+[source,java]
+----
+Button saveButton = new Button("Save");
+saveButton.addClickListener(click -> {
+  // (Save form logic omitted)
+
+  // On success, navigate to another view
+  saveButton.getUI().ifPresent(ui -> ui.navigate(SampleView.NAME));
+});
+----
+
+NOTE: `UI` es la "raíz" invisible de una aplicación Vaadin. Hay una instancia de `UI` por pestaña del navegador. `UI` se usa principalmente para navegar o sincronizar el acceso al actualizar el estado de la interfaz de usuario desde un hilo externo.
+
+=== Rutas anidadas, parámetros, páginas de error
+Es posible hacer sistemas de navegación mucho más sofisticados que los anteriores. Consulta la documentación para obtener más información sobre https://vaadin.com/docs/flow/routing/tutorial-router-layout.html[rutas anidadas], https://vaadin.com/docs/flow/routing/tutorial-router-url-parameters.html[parámetros en la URL] y https://vaadin.com/docs/flow/routing/tutorial-routing-exception-handling.html[manejo de excepciones de navegación].
+
+== Pruebas de software
+Las pruebas de software (_testing_) son una parte vital en el desarrollo de aplicaciones confiables. Normalmente hay tres tipos de pruebas que desearás escribir para su aplicación: https://es.wikipedia.org/wiki/Prueba_unitaria[pruebas de unidad], https://es.wikipedia.org/wiki/Prueba_de_integración[pruebas de integración] y https://en.wikipedia.org/wiki/System_testing[pruebas de sistema].
+
+Veamos un ejemplo. El siguiente es el componente que queremos probar:
+
+.`*ExampleComponent.java*`
+[source,java]
+----
+@Route
+public class ExampleComponent  extends VerticalLayout {
+  private final Binder<Person> binder;
+  private BackendService service;
+
+  TextField firstName = new TextField("First Name");
+  TextField lastName = new TextField("Last Name");
+  Button saveButton = new Button("Save");
+
+  public ExampleComponent(BackendService service) {
+    this.service = service;
+    add(firstName, lastName, saveButton);
+    binder = new Binder<>(Person.class);
+    // Bind fields to bean by name
+    binder.bindInstanceFields(this);
+    saveButton.addClickListener(click -> save());
+  }
+
+  public void save() {
+    try{
+      Person person = new Person();
+      binder.writeBean(person);
+      service.save(person);
+      saveButton.setText("Saved");
+    } catch (ValidationException e) {
+      e.printStackTrace();
+    }
+  }
+}
+----
+
+Este componente es un formulario con campos de texto para nombre y apellido, vinculado a un objeto `Person` a través de un `Binder`. Consulta la sección anterior sobre formularios si no estás familiarizado con la clase `Binder`.
+
+Cuando se guarda el formulario, el objeto `Person` resultante se debe guardar usando un `BackendService`.
+
+=== Pruebas de unidad e integración
+Las pruebas unitarias y de integración generalmente constituyen la mayor parte de las pruebas para tu aplicación. Las pruebas no requieren iniciar un servidor o un navegador, por lo que son rápidas de ejecutar.
+
+Las pruebas unitarias y las pruebas de integración son muy similares en su implementación. La principal diferencia es que en una prueba unitaria, pruebas una sola pieza de código de forma aislada (por ejemplo, un componente), mientras que en una prueba de integración pruebas varias piezas de contenido interconectadas.
+
+Para escribir una prueba unitaria para el componente anterior, necesitamos una biblioteca de pruebas para ejecutar el código y una biblioteca de simulación (_mocking_) para eliminar las dependencias de la funcionalidad que no se están probando.
+
+En este ejemplo, usaremos https://junit.org/junit5/[JUnit 5] y https://site.mockito.org/[Mockito].
+
+.`*ExampleComponentTest.java*`
+[source,java]
+----
+class ExampleComponentTest {
+
+  private ExampleComponent component;
+  private BackendService serviceMock;
+
+  @BeforeEach
+  void setUp() {
+    serviceMock = Mockito.mock(BackendService.class);
+    component = new ExampleComponent(serviceMock);
+  }
+
+  @Test
+  void save() {
+    component.firstName.setValue("Marcus");
+    component.lastName.setValue("Hellberg");
+
+    component.save();
+
+    // Person.equals is based on names in this example
+    Mockito.verify(serviceMock).save(new Person("Marcus", "Hellberg"));
+  }
+}
+----
+
+En la prueba, configuramos una _mock_ de `BackendService` ya que estamos enfocando la prueba en la clase `ExampleComponent`. Todo lo que necesitamos es verificar que será llamada con los datos correctos.
+
+En la prueba, configuramos el estado de la interfaz de usuario ingresando valores en los campos de texto. Luego llamamos a 'save()' y verificamos que el servicio backend ha sido llamado con un objeto `Person` con el nombre y apellido correctos.
+
+También podríamos haber convertido esto en una prueba de integración mediante el uso de una implementación real de `BackendService` en lugar de un _mock_.
+
+
+=== Pruebas de extremo a extremo (prueba en el navegador)
+En las pruebas de extremo a extremo, nos aseguramos de que la aplicación completa funcione como un todo. Para hacer esto, necesitamos configurar un servidor para implementar la aplicación y configurar un entorno de pruebas de navegador.
+
+Vaadin tiene una herramienta oficial de pruebas de navegador llamada https://vaadin.com/testbench[TestBench]. TestBench se encarga de iniciar los navegadores y tiene selectores específicos de Vaadin para encontrar componentes de la interfaz de usuario en el navegador.
+
+Para probar el componente en su entorno real a través de un navegador, podríamos escribir el siguiente caso de prueba de TestBench.
+
+.`*ExampleComponentIT.java*`
+[source,java]
+----
+public class ExampleComponentIT extends TestBenchTestCase {
+
+  @Before
+  public void setup() throws Exception {
+    setDriver(new ChromeDriver());
+    getDriver().get("http://localhost:8080/example");
+  }
+
+  @Test
+  public void clickButton() {
+    ButtonElement button = $(ButtonElement.class).first();
+    button.click();
+    Assert.assertEquals("Saved", button.getText());
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    getDriver().quit();
+  }
+}
+----
+
+Antes de ejecutar la prueba, configuramos un nuevo controlador de navegador Chrome y abrimos la ruta al componente.
+
+Luego encontramos el botón, hacemos clic en él y comprobamos que el título se actualizó correctamente.
+
+NOTE: Por convención, las pruebas de Vaadin TestBench son nombradas con un final -IT (`TestNameIT`) que significa prueba de integración, aunque técnicamente son pruebas de sistema.
+
+Como puedes ver, esta prueba es más general. Solo puede decirnos si todo funcionó o si algo falló. No nos dará mucha información específica sobre lo que salió mal. Debido a esto, es bueno contar con un conjunto de pruebas específicas (pruebas de unidad) y pruebas de integración para detectar problemas. TestBench es más apropiado para pruebas de alto nivel y _última línea de defensa_, que pueden detectar errores incluso si otras pruebas no los detectan.
+
+https://vaadin.com/testbench[Lee más sobre cómo crear pruebas confiables y mantenibles con TestBench.]
+
+== Configurando la apariencia con CSS
+Todos los componentes de Vaadin incluyen un tema configurable llamado Lumo. Lumo permite configurar cosas como colores, fuentes, tamaño, redondez y espaciado para que el todos los componentes tengan un aspecto consistente. La configuración se basa en propiedades personalizadas de CSS (variables), lo que garantiza que todos los componentes se vean de forma consistente.
+
+image::lumo-editor.gif[Editor utilizado para cambiar los colores y la apariencia visual de una aplicación Vaadin]
+
+La forma más fácil de explorar las opciones y configurar valores para las variables CSS es utilizar el https://demo.vaadin.com/lumo-editor/[editor de temas Lumo].
+
+Las aplicaciones Vaadin se pueden personalizar aún más con CSS. https://vaadin.com/docs/v13/flow/theme/theming-overview.html[Lee más sobre el diseño de aplicaciones con Vaadin].
+
+
+== Producción
+Cuando estés listo para llevar tu aplicación a producción, ejecuta:
+
+[source]
+----
+mvn clean package -Pproduction
+----
+
+Esto creará un paquete reducido con una versión ES5 necesaria para el soporte de IE11.
+
+NOTE: Lo anterior supone que estás utilizando una aplicación basada en un _starter_ de Vaadin. De lo contrario, debes agregar el plugin de Maven para Vaadin manualmente, consulta las instrucciones http://vaadin.com/docs/flow/production/tutorial-production-mode-basic.html[aquí].
+
+https://vaadin.com/docs/flow/production/tutorial-production-mode-basic.html[Lee más sobre compilaciones para producción]
+
+== Siguientes pasos
+
+Ahora que conoces los conceptos básicos, puedes comenzar a crear tu propia aplicación.
+
+Si deseas aprender cómo construir una aplicación completa con enlace de datos y una base de datos, comienza con el https://vaadin.com/tutorials/getting-started-with-flow/setting-up-the-project[tutorial básico de Vaadin].
+
+Si prefieres ver videos, tenemos un https://vaadin.com/training/courses[curso gratuito sobre los conceptos básicos de Vaadin] (requiere tener una cuenta en vaadin.com).
+
+Si deseas explorar todos los tutoriales y material de aprendizaje, visita el https://vaadin.com/tutorials[Learning Center de Vaadin].
+
+Si solo quieres explorar más, consulta los https://vaadin.com/components[fragmentos de código sobre como usar componentes Vaadin] o la https://vaadin.com/docs[documentación completa sobre Vaadin] para obtener una explicación más detallada de cómo funciona el framework.
