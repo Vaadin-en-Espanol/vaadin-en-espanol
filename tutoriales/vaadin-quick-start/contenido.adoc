@@ -13,7 +13,7 @@ Para continuar asegúrese de que al menos las siguientes herramientas estén ins
 - Java Development Kit (JDK) 8 o posterior, como https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html[OpenJDK 8,window=_blank]
 - Un Java IDE, como https://www.jetbrains.com/idea/download/[IntelliJ IDEA Community,window=_blank]
 
-== Baje un porjecto Vaadin minimo. 
+== Baje un projecto Vaadin minimo. 
 
 https://pages.vaadin.com/hubfs/1840687/my-app.zip[Bajar^, role="button button--bordered quickstart-download-project"]
 
