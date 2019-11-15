@@ -1,10 +1,15 @@
 = Tutorial de inicio rápido con Vaadin
+:tags: Java, Vaadin
+:author: Carlos Gustavo Nuñez
+:description: Aprende como contruir una aplicacion Vaadin mínima.
+:imagesdir: ./images
+:repo: https://github.com/cgnunezbantics/vaadin-en-espanol
 
 En este tutorial, podrás aprender como contruir una aplicacion Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo _component-based_ y _listening_ a _events_. 
 
 La aplicacion que contruirás es la aplicacion clásica _Todo_ 
 
-image::images/app-overview.png[Aplicacion Todo con un _header_, _checkboxes_ para todo items y un _form_ para ingresar nuevos items]
+image::app-overview.png[Aplicacion Todo con un _header_, _checkboxes_ para todo items y un _form_ para ingresar nuevos items]
 
 == Prerequisitos
 
@@ -33,7 +38,7 @@ Abrí `src/main/java/com/vaadin/example/MainView.java` en un editor de textos.
 
 Vaadin es un _framework_ basado en componentes. Puedes construir interfaces de usuario creando instancias de componentes y colocándolos en layouts que determinan cómo se muestran. `MainView` extiende de `VerticalLayout`. Significa que cada componente agregado se coloca debajo del anterior. Vaadin agrega relleno alrededor del layout y los components para mayor claridad visual.
 
-image::images/component-layout.png[El diagrama muestra el layouts de la aplicación. todosList es un layout conteniendo checkboxes para todo items. Debajo hay un layout horizontal que contiene un campo de texto y un botón.]
+image::component-layout.png[El diagrama muestra el layouts de la aplicación. todosList es un layout conteniendo checkboxes para todo items. Debajo hay un layout horizontal que contiene un campo de texto y un botón.]
 
 Reemplaza el código en MainView con el siguiente código:
 
@@ -86,7 +91,7 @@ Si todavía tienes tú su servidor en ejecución, matá el proceso y vuelvé a e
 
 Navegá a `http://localhost:8080[localhost:8080, rel="nofollow"]` y deberías ver lo siguiente:
 
-image::images/completed-app.gif[Animación de agregar un nuevo todo item y chequeo de este]
+image::completed-app.gif[Animación de agregar un nuevo todo item y chequeo de este]
 
 == Siguientes pasos
 
