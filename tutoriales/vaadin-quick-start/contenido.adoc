@@ -1,14 +1,8 @@
-= Vaadin quick start tutorial
-:tags: Java, Flow, Spring, Spring Boot
-:author: Marcus Hellberg
-:description: Learn the basics of Vaadin development with a simple example application.  
-:repo: https://github.com/vaadin-learning-center/vaadin-todo
-:linkattrs: 
-:imagesdir: ./images
+= Tutorial de inicio rápido con Vaadin
 
-En este tutorial, tú puedes aprender como contruir una aplicacion Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo _component-based_ y _listening_ a _events_. 
+En este tutorial, puedes aprender como contruir una aplicacion Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo _component-based_ y _listening_ a _events_. 
 
-La aplicacion que tu contruirás es la aplicacion clásica _Todo_ 
+La aplicacion que contruirás es la aplicacion clásica _Todo_ 
 
 image::app-overview.png[Aplicacion Todo con un _header_, _checkboxes_ para todo items y un _form_ para ingresar nuevos items]
 
