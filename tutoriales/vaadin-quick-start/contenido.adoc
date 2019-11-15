@@ -2,13 +2,13 @@
 
 En este tutorial, podrás aprender como contruir una aplicacion Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo basado en componentes y manejo de eventos. 
 
-La aplicacion que contruirás es la aplicacion clásica _Todo_ 
+La aplicación que contruirás es la aplicación clásica Todo 
 
-image::app-overview.png[Aplicacion Todo con un _header_, _checkboxes_ para todo items y un _form_ para ingresar nuevos items]
+image::/images/app-overview.png[Aplicacion Todo con un _header_, _checkboxes_ para todo items y un _form_ para ingresar nuevos items]
 
 == Prerequisitos
 
-Para continuar asegúrate de que al menos estén instaladas las siguientes herramientas:
+Para continuar asegúrate que al menos estén instaladas las siguientes herramientas:
 
 - Java Development Kit (JDK) 8 o posterior, como https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html[OpenJDK 8,window=_blank]
 - Un Java IDE, como https://www.jetbrains.com/idea/download/[IntelliJ IDEA Community,window=_blank]
@@ -17,23 +17,23 @@ Para continuar asegúrate de que al menos estén instaladas las siguientes herra
 
 https://pages.vaadin.com/hubfs/1840687/my-app.zip[Bajar^, role="button button--bordered quickstart-download-project"]
 
-Una vez que descargaste el proyecto, descomprí el archivo, por ej. en tu directorio de _home_. Por ahora, no necesitamos instalar ningún IDE o servidor de aplicaciones. Utilizararemos un servidor simple Java embebido para ejecutar la aplicación y un editor de texto para editar el código fuente.
+Una vez descargado el proyecto, descomprime el archivo, por ej. en tu directorio de _home_. Por ahora, no necesitamos instalar ningún IDE o servidor de aplicaciones. Utilizararemos un servidor simple Java embebido para ejecutar la aplicación y un editor de texto para editar el código fuente.
 
 La carpeta del proyecto tiene algunos archivos y carpetas, muchos de ellos relacionados con las dependencias y la configuración del proyecto. En este tutorial, solo estamos interesados en nuestro código de _UI_ en `src/main/java/com/vaadin/example/MainView.java`
 
-Construí el proyecto y ejecutá la aplicación en un servidor Jetty embebido. En la carpeta raíz del proyecto, ejecutá el script `mvnw`.
+Construye el proyecto y ejecuta la aplicación en un servidor Jetty embebido. En la carpeta raíz del proyecto, ejecutá el script `mvnw`.
 
-Navegá a `http://localhost:8080[localhost:8080, rel="nofollow"]`, y deberás ver una aplicación Vaadin básica con un botón.
+Navega a `http://localhost:8080[localhost:8080, rel="nofollow"]`, y deberás ver una aplicación Vaadin básica con un botón.
 
 Ahora estamos listos para comenzar a construir la aplicación.
 
 == Construyendo UIs con componentes y layouts
 
-Abrí `src/main/java/com/vaadin/example/MainView.java` en un editor de textos.
+Abre `src/main/java/com/vaadin/example/MainView.java` en un editor de textos.
 
-Vaadin es un _framework_ basado en componentes. Puedes construir interfaces de usuario creando instancias de componentes y colocándolos en layouts que determinan cómo se muestran. `MainView` extiende de `VerticalLayout`. Significa que cada componente agregado se coloca debajo del anterior. Vaadin agrega relleno alrededor del layout y los components para mayor claridad visual.
+Vaadin es un _framework_ basado en componentes. Puedes construir interfaces de usuario creando instancias de componentes y colocándolos en layouts que determinan cómo se muestran. `MainView` extiende de `VerticalLayout`. Significa que cada componente agregado se coloca debajo del anterior. Vaadin agrega relleno alrededor del layout y los componentes para mayor claridad visual.
 
-image::component-layout.png[El diagrama muestra el layouts de la aplicación. todosList es un layout conteniendo checkboxes para todo items. Debajo hay un layout horizontal que contiene un campo de texto y un botón.]
+image::/images/component-layout.png[El diagrama muestra el layouts de la aplicación. todosList es un layout conteniendo checkboxes para todo items. Debajo hay un layout horizontal que contiene un campo de texto y un botón.]
 
 Reemplaza el código en MainView con el siguiente código:
 
@@ -78,19 +78,19 @@ public class MainView extends VerticalLayout {
 ---- 
 <1> `todosList` es un layout vertical que muestra la tarea y las casillas de verificación
 <2> `taskField` es el campo de entrada de texto para nuevas tareas
-<3> `addButton` dispara la lógica para agregar nuevos items a nuestra lista de todo items
+<3> `addButton` dispara la lógica para agregar nuevos items a nuestra lista de Todo items
 <4> En el listener de clic en el botón, cree una checkbox con el valor del `taskField` como su etiqueta.
-<5> La llamada de `add` de VerticalLayout define cómo se deben mostrar los components. Observe que `taskField` y `addButton` están en un `HorizontalLayout`, que los coloca uno al lado del otro.
+<5> La llamada de `add` de VerticalLayout define cómo se deben mostrar los componentes. Observe que `taskField` y `addButton` están en un `HorizontalLayout`, que los coloca uno al lado del otro.
 
-Si todavía tienes tú su servidor en ejecución, matá el proceso y vuelvé a ejecutar el script `mvwn`.
+Si todavía tienes tu servidor en ejecución, mata el proceso y vuelve a ejecutar el script `mvwn`.
 
-Navegá a `http://localhost:8080[localhost:8080, rel="nofollow"]` y deberías ver lo siguiente:
+Navega a `http://localhost:8080[localhost:8080, rel="nofollow"]` y deberías ver lo siguiente:
 
-image::completed-app.gif[Animación de agregar un nuevo todo item y chequeo de este]
+image::/images/completed-app.gif[Animación de agregar un nuevo todo item y chequeo de este]
 
 == Siguientes pasos
 
-Para desarrollar aplicaciones más complejas, recomendamos usar un IDE como Eclipse o IntelliJ IDEA. Antes de implementar tú aplicación en producción, debes aplicar tecnicas de agrupación y la minificación. Estos temas y muchos más están cubiertos en nuestros tutoriales y cursos en video.
+Para desarrollar aplicaciones más complejas, recomendamos usar un IDE como Eclipse o IntelliJ IDEA. Antes de implementar tu aplicación en producción, debes aplicar técnicas de agrupación y la minificación. Estos temas y muchos más están cubiertos en nuestros tutoriales y cursos en video.
 
-- link:/tutorials/getting-started-with-flow[Tutorial de aplicacion CRUD] 
-- link:/training/courses[Video curso en línea gratuito que cubre los conceptos básicos de Vaadin]
+- link:/tutorials/getting-started-with-flow[Tutorial de aplicación CRUD] 
+- link:/training/courses[Curso en video en línea gratuito que cubre los conceptos básicos de Vaadin]
