@@ -1,6 +1,6 @@
 = Tutorial de inicio rápido con Vaadin
 
-En este tutorial, podrás aprender como contruir una aplicacion Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo _component-based_ y _listening_ a _events_. 
+En este tutorial, podrás aprender como contruir una aplicacion Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo basado en componentes y manejo de eventos. 
 
 La aplicacion que contruirás es la aplicacion clásica _Todo_ 
 
@@ -27,7 +27,7 @@ Navegá a `http://localhost:8080[localhost:8080, rel="nofollow"]`, y deberás ve
 
 Ahora estamos listos para comenzar a construir la aplicación.
 
-== Construyendo UIs con _components_ y layouts
+== Construyendo UIs con componentes y layouts
 
 Abrí `src/main/java/com/vaadin/example/MainView.java` en un editor de textos.
 
