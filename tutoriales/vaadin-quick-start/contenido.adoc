@@ -1,6 +1,6 @@
 = Tutorial de inicio rápido con Vaadin
 
-En este tutorial, podrás aprender como contruir una aplicacion Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo basado en componentes y manejo de eventos. 
+En este tutorial, podrás aprender como construir una aplicación Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo basado en componentes y manejo de eventos. 
 
 La aplicación que contruirás es la aplicación clásica Todo 
 
