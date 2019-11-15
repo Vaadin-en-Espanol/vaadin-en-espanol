@@ -1,6 +1,6 @@
 = Tutorial de inicio rápido con Vaadin
 
-En este tutorial, puedes aprender como contruir una aplicacion Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo _component-based_ y _listening_ a _events_. 
+En este tutorial, podrás aprender como contruir una aplicacion Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo _component-based_ y _listening_ a _events_. 
 
 La aplicacion que contruirás es la aplicacion clásica _Todo_ 
 
@@ -8,34 +8,34 @@ image::images/app-overview.png[Aplicacion Todo con un _header_, _checkboxes_ par
 
 == Prerequisitos
 
-Para continuar asegúrese de que al menos las siguientes herramientas estén instaladas:
+Para continuar asegúrate de que al menos estén instaladas las siguientes herramientas:
 
 - Java Development Kit (JDK) 8 o posterior, como https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html[OpenJDK 8,window=_blank]
 - Un Java IDE, como https://www.jetbrains.com/idea/download/[IntelliJ IDEA Community,window=_blank]
 
-== Baje un projecto Vaadin minimo. 
+== Bajá un projecto Vaadin minimo. 
 
 https://pages.vaadin.com/hubfs/1840687/my-app.zip[Bajar^, role="button button--bordered quickstart-download-project"]
 
-Una vez que haya descargado el proyecto, descomprima el archivo, ej. a su directorio de _home_. Por ahora, no necesita instalar ningún IDE o servidor de aplicaciones. Utilizaremos un servidor simple Java _embedded_ para ejecutar la aplicación y un editor de texto para editar el código fuente.
+Una vez que descargaste el proyecto, descomprí el archivo, por ej. en tu directorio de _home_. Por ahora, no necesitamos instalar ningún IDE o servidor de aplicaciones. Utilizararemos un servidor simple Java _embedded_ para ejecutar la aplicación y un editor de texto para editar el código fuente.
 
 La carpeta del proyecto tiene algunos archivos y carpetas, muchos de ellos relacionados con las dependencias y la configuración del proyecto. En este tutorial, solo estamos interesados en nuestro código de _UI_ en `src/main/java/com/vaadin/example/MainView.java`
 
-Construya el proyecto y ejecute la aplicación en un servidor Jetty embedded. En la carpeta raíz del proyecto, ejecute el script `mvnw`.
+Construí el proyecto y ejecutá la aplicación en un servidor Jetty embedded. En la carpeta raíz del proyecto, ejecutá el script `mvnw`.
 
-Navegue a `http://localhost:8080[localhost:8080, rel="nofollow"]`, y debería ver una aplicación Vaadin básica con un botón.
+Navegá a `http://localhost:8080[localhost:8080, rel="nofollow"]`, y deberás ver una aplicación Vaadin básica con un botón.
 
 Ahora estamos listos para comenzar a construir la aplicación.
 
 == Construyendo UIs con _components_ y layouts
 
-Abra `src/main/java/com/vaadin/example/MainView.java` en un editor de textos.
+Abrí `src/main/java/com/vaadin/example/MainView.java` en un editor de textos.
 
 Vaadin es un _framework_ component-based. Construye interfaces de usuario creando instancias de componentes y colocándolos en layouts que determinan cómo se muestran. `MainView` extiende de `VerticalLayout`. Significa que cada componente agregado se coloca debajo del anterior. Vaadin agrega relleno alrededor del layout y los components para mayor claridad visual.
 
 image::images/component-layout.png[El diagrama muestra el layouts de la aplicación. todosList es un layout conteniendo checkboxes para todo items. Debajo hay un layout horizontal que contiene un campo de texto y un botón.]
 
-Reemplace el código en MainView con el siguiente código:
+Reemplaza el código en MainView con el siguiente código:
 
 .`*MainView.java*`
 [source,java]
@@ -82,15 +82,15 @@ public class MainView extends VerticalLayout {
 <4> En el listener de clic en el botón, cree una checkbox con el valor del `taskField` como su etiqueta.
 <5> La llamada de `add` de VerticalLayout define cómo se deben mostrar los components. Observe que `taskField` y` addButton` están en un `HorizontalLayout`, que los coloca uno al lado del otro.
 
-Si todavía tiene su servidor en ejecución, mate el proceso y vuelva a ejecutar el script `mvwn`.
+Si todavía tienes tú su servidor en ejecución, matá el proceso y vuelvé a ejecutar el script `mvwn`.
 
-Navegue a `http://localhost:8080[localhost:8080, rel="nofollow"]` y deberia ver lo siguiente:
+Navegá a `http://localhost:8080[localhost:8080, rel="nofollow"]` y deberías ver lo siguiente:
 
 image::images/completed-app.gif[Animación de agregar un nuevo todo item y chequeo de este]
 
 == Siguientes pasos
 
-Para desarrollar aplicaciones más complejas, recomendamos usar un IDE como Eclipse o IntelliJ IDEA. Antes de implementar su aplicación en producción, los activos deben _minified_ y _bundled_. Estos temas y muchos más están cubiertos en nuestros tutoriales y cursos en video.
+Para desarrollar aplicaciones más complejas, recomendamos usar un IDE como Eclipse o IntelliJ IDEA. Antes de implementar tú aplicación en producción, tus activos deben estar _minified_ y _bundled_. Estos temas y muchos más están cubiertos en nuestros tutoriales y cursos en video.
 
 - link:/tutorials/getting-started-with-flow[Tutorial de aplicacion CRUD] 
 - link:/training/courses[Video curso en línea gratuito que cubre los conceptos básicos de Vaadin]
