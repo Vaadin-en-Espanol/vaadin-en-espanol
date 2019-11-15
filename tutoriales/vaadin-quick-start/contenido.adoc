@@ -1,5 +1,4 @@
 = Tutorial de inicio rápido con Vaadin
-:tags: Java, Vaadin
 :author: Carlos Gustavo Nuñez
 :description: Aprende como contruir una aplicacion Vaadin mínima.
 :imagesdir: ./images
