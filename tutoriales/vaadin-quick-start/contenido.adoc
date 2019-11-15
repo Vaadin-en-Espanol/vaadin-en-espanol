@@ -17,11 +17,11 @@ Para continuar asegúrate de que al menos estén instaladas las siguientes herra
 
 https://pages.vaadin.com/hubfs/1840687/my-app.zip[Bajar^, role="button button--bordered quickstart-download-project"]
 
-Una vez que descargaste el proyecto, descomprí el archivo, por ej. en tu directorio de _home_. Por ahora, no necesitamos instalar ningún IDE o servidor de aplicaciones. Utilizararemos un servidor simple Java _embedded_ para ejecutar la aplicación y un editor de texto para editar el código fuente.
+Una vez que descargaste el proyecto, descomprí el archivo, por ej. en tu directorio de _home_. Por ahora, no necesitamos instalar ningún IDE o servidor de aplicaciones. Utilizararemos un servidor simple Java embebido para ejecutar la aplicación y un editor de texto para editar el código fuente.
 
 La carpeta del proyecto tiene algunos archivos y carpetas, muchos de ellos relacionados con las dependencias y la configuración del proyecto. En este tutorial, solo estamos interesados en nuestro código de _UI_ en `src/main/java/com/vaadin/example/MainView.java`
 
-Construí el proyecto y ejecutá la aplicación en un servidor Jetty embedded. En la carpeta raíz del proyecto, ejecutá el script `mvnw`.
+Construí el proyecto y ejecutá la aplicación en un servidor Jetty embebido. En la carpeta raíz del proyecto, ejecutá el script `mvnw`.
 
 Navegá a `http://localhost:8080[localhost:8080, rel="nofollow"]`, y deberás ver una aplicación Vaadin básica con un botón.
 
@@ -31,7 +31,7 @@ Ahora estamos listos para comenzar a construir la aplicación.
 
 Abrí `src/main/java/com/vaadin/example/MainView.java` en un editor de textos.
 
-Vaadin es un _framework_ component-based. Construye interfaces de usuario creando instancias de componentes y colocándolos en layouts que determinan cómo se muestran. `MainView` extiende de `VerticalLayout`. Significa que cada componente agregado se coloca debajo del anterior. Vaadin agrega relleno alrededor del layout y los components para mayor claridad visual.
+Vaadin es un _framework_ basado en componentes. Puedes construir interfaces de usuario creando instancias de componentes y colocándolos en layouts que determinan cómo se muestran. `MainView` extiende de `VerticalLayout`. Significa que cada componente agregado se coloca debajo del anterior. Vaadin agrega relleno alrededor del layout y los components para mayor claridad visual.
 
 image::images/component-layout.png[El diagrama muestra el layouts de la aplicación. todosList es un layout conteniendo checkboxes para todo items. Debajo hay un layout horizontal que contiene un campo de texto y un botón.]
 
@@ -80,7 +80,7 @@ public class MainView extends VerticalLayout {
 <2> `taskField` es el campo de entrada de texto para nuevas tareas
 <3> `addButton` dispara la lógica para agregar nuevos items a nuestra lista de todo items
 <4> En el listener de clic en el botón, cree una checkbox con el valor del `taskField` como su etiqueta.
-<5> La llamada de `add` de VerticalLayout define cómo se deben mostrar los components. Observe que `taskField` y` addButton` están en un `HorizontalLayout`, que los coloca uno al lado del otro.
+<5> La llamada de `add` de VerticalLayout define cómo se deben mostrar los components. Observe que `taskField` y `addButton` están en un `HorizontalLayout`, que los coloca uno al lado del otro.
 
 Si todavía tienes tú su servidor en ejecución, matá el proceso y vuelvé a ejecutar el script `mvwn`.
 
@@ -90,7 +90,7 @@ image::images/completed-app.gif[Animación de agregar un nuevo todo item y chequ
 
 == Siguientes pasos
 
-Para desarrollar aplicaciones más complejas, recomendamos usar un IDE como Eclipse o IntelliJ IDEA. Antes de implementar tú aplicación en producción, tus activos deben estar _minified_ y _bundled_. Estos temas y muchos más están cubiertos en nuestros tutoriales y cursos en video.
+Para desarrollar aplicaciones más complejas, recomendamos usar un IDE como Eclipse o IntelliJ IDEA. Antes de implementar tú aplicación en producción, debes aplicar tecnicas de agrupación y la minificación. Estos temas y muchos más están cubiertos en nuestros tutoriales y cursos en video.
 
 - link:/tutorials/getting-started-with-flow[Tutorial de aplicacion CRUD] 
 - link:/training/courses[Video curso en línea gratuito que cubre los conceptos básicos de Vaadin]
