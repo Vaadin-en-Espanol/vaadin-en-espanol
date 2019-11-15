@@ -4,7 +4,7 @@ En este tutorial, podrás aprender como contruir una aplicacion Vaadin pequeña,
 
 La aplicación que contruirás es la aplicación clásica Todo 
 
-image::/images/app-overview.png[Aplicacion Todo con un _header_, _checkboxes_ para todo items y un _form_ para ingresar nuevos items]
+image::images/app-overview.png[Aplicacion Todo con un _header_, _checkboxes_ para todo items y un _form_ para ingresar nuevos items]
 
 == Prerequisitos
 
@@ -33,7 +33,7 @@ Abre `src/main/java/com/vaadin/example/MainView.java` en un editor de textos.
 
 Vaadin es un _framework_ basado en componentes. Puedes construir interfaces de usuario creando instancias de componentes y colocándolos en layouts que determinan cómo se muestran. `MainView` extiende de `VerticalLayout`. Significa que cada componente agregado se coloca debajo del anterior. Vaadin agrega relleno alrededor del layout y los componentes para mayor claridad visual.
 
-image::/images/component-layout.png[El diagrama muestra el layouts de la aplicación. todosList es un layout conteniendo checkboxes para todo items. Debajo hay un layout horizontal que contiene un campo de texto y un botón.]
+image::images/component-layout.png[El diagrama muestra el layouts de la aplicación. todosList es un layout conteniendo checkboxes para todo items. Debajo hay un layout horizontal que contiene un campo de texto y un botón.]
 
 Reemplaza el código en MainView con el siguiente código:
 
@@ -86,7 +86,7 @@ Si todavía tienes tu servidor en ejecución, mata el proceso y vuelve a ejecuta
 
 Navega a `http://localhost:8080[localhost:8080, rel="nofollow"]` y deberías ver lo siguiente:
 
-image::/images/completed-app.gif[Animación de agregar un nuevo todo item y chequeo de este]
+image::images/completed-app.gif[Animación de agregar un nuevo todo item y chequeo de este]
 
 == Siguientes pasos
 
