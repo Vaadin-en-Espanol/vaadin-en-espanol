@@ -2,14 +2,14 @@
 
 _Traducido del https://vaadin.com/tutorials/calling-java-from-javascript[Original en Inglés]._
 
-Usualmente las aplicaciones Java del lado del servidor pueden habilitar métodos para ser expuestos como un _end-point_ usando Servicios Web REST.  Aunque este es un enfoque completamente correcto, este tutorial muestra una manera alternativa para llamar métodos Java del lado del servidor sin la necesidad de implementar Servicios Web. Esto es posible gracias a Vaadin Flow, un framework que incorpora un conjunto de clases Java que no solo te permiten construir Web UI en Java, sino que también incluye un mecanismo de comunicación automático para realizar el llamado de métodos Java desde JavaScript de manera sencilla.
+Usualmente las aplicaciones Java del lado del servidor pueden habilitar métodos para ser expuestos como un _end-point_ usando Servicios Web REST.  Aunque este es un enfoque completamente correcto, este tutorial muestra una manera alternativa para llamar métodos Java del lado del servidor sin la necesidad de implementar Servicios Web. Esto es posible gracias a Vaadin, un framework que incorpora un conjunto de clases Java que no solo te permiten construir Web UI en Java, sino que también incluye un mecanismo de comunicación automático para realizar el llamado de métodos Java desde JavaScript de manera sencilla.
 
-En este tutorial paso a paso aprenderás a usar Vaadin para llamar código Java del lado del servidor desde código JavaScript del lado del cliente. Lo único que necesitas para seguir el tutorial es entender lo básico del Lenguaje de Programación en Java, los fundamentos de JavaScript, tener instalado Java Development Kit (JDK) 8 o posterior y un Java IDE.
+En este tutorial paso a paso aprenderás a usar Vaadin para llamar código Java del lado del servidor desde código JavaScript del lado del cliente. Lo único que necesitas para seguir el tutorial es entender lo básico del Lenguaje de Programación Java, los fundamentos de JavaScript, tener instalado Java Development Kit (JDK) 8 o posterior y un IDE Java.
 
-NOTE: Puedes encontrar el código fuente del tutorial original en Inglés en https://github.com/vaadin-learning-center/calling-java-from-javascript[GitHub].
+NOTE: Puedes encontrar el código fuente del tutorial original en Inglés en https://github.com/vaadin-learning-center/calling-java-from-javascript[...]
 
-== # Configurando el proyecto
-. Ir a esta https://vaadin.com/start/latest/project-base[página].
+== Configurando el proyecto
+. Ve a https://vaadin.com/start/latest/project-base[...]
 . Verás un formulario para generar una aplicación. En *Tech stack* elige _Plain Java Servlet_,  para *Group ID* escribe _com.ejemplo_ y para *Project Name* escribe _invocando-java-desde-javascript_:
 
 image::starter_page.png[]
@@ -200,11 +200,11 @@ Reinicie el servidor Jetty de nuevo y consulta la aplicación para ver el saludo
 
 image::saludar-javaserver.png[]
 
-== # ¿Qué sigue?
+== ¿Qué sigue?
 
-Cerramos el circulo de llamar JavaScript desde Java y Java desde JavaScript sin usar Servicios Web REST. Si completaste este tutorial, posiblemente ya tienes ideas sobre qué probar a continuación. Podrías querer agregar algún CSS (puedes hacer algo como `@StyleSheet("frontend://styles.css"))` o posiblemente te gustaría agregar tu propia lógica de negocio en JavaScript y Java.
+Y así, el círculo está completo. Hemos llamado JavaScript desde Java y Java desde JavaScript sin usar Servicios Web REST. Si completaste este tutorial, posiblemente ya tienes ideas sobre qué probar a continuación. Podrías querer agregar algo de CSS (puedes hacer algo como `@StyleSheet("frontend://styles.css"))` o posiblemente te gustaría agregar tu propia lógica de negocio en JavaScript y Java.
 
-No obstante, Vaadin es mucho más que una librería para conectar JavaScript con Java. Como te puedes imaginar, el mecanismo de comunicación automatizado de Vaadin puede ser usado para generar potentes interfaces de usuario web. Pues bien, ¡Vaadin te permite hacerlo en Java! Por ejemplo, intenta modificar la case `VistaPrincipal`:
+No obstante, Vaadin es mucho más que una librería para conectar JavaScript con Java. Como te puedes imaginar, el mecanismo de comunicación automatizado de Vaadin puede ser usado para generar potentes interfaces de usuario web. Pues bien, ¡Vaadin te permite hacerlo en Java! Por ejemplo, intenta modificar la clase `VistaPrincipal` de la siguiente forma:
 
 
 .`*VistaPrincipal.java*`
@@ -225,7 +225,7 @@ public class VistaPrincipal extends Div {
 
 ----
 
-Sin escribir código en JavaScript en absoluto, tú obtienes una aplicación web basada en HTML en el navegador.
+Sin escribir código en JavaScript en absoluto, obtienes una aplicación web basada en HTML en el navegador.
 
 image::saludar_button_page.png[]
 
