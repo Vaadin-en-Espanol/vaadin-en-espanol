@@ -6,10 +6,10 @@ Usualmente las aplicaciones Java del lado del servidor pueden habilitar métodos
 
 En este tutorial paso a paso aprenderás a usar Vaadin para llamar código Java del lado del servidor desde código JavaScript del lado del cliente. Lo único que necesitas para seguir el tutorial es entender lo básico del Lenguaje de Programación Java, los fundamentos de JavaScript, tener instalado Java Development Kit (JDK) 8 o posterior y un IDE Java.
 
-NOTE: Puedes encontrar el código fuente del tutorial original en Inglés en https://github.com/vaadin-learning-center/calling-java-from-javascript[...]
+NOTE: Puedes encontrar el código fuente del tutorial en https://github.com/vaadin-learning-center/calling-java-from-javascript[GitHub].
 
 == Configurando el proyecto
-. Ve a https://vaadin.com/start/latest/project-base[...]
+. Ve a https://vaadin.com/start/latest/project-base[página].
 . Verás un formulario para generar una aplicación. En *Tech stack* elige _Plain Java Servlet_,  para *Group ID* escribe _com.ejemplo_ y para *Project Name* escribe _invocando-java-desde-javascript_:
 
 image::starter_page.png[]
