@@ -25,7 +25,7 @@ image::contenido_folder.png[]
 
 Ahora tenemos un punto de inicio limpio sin código de distracción. ¡Comencemos a hackear!
 
-== # Creando una página web vacía
+== Creando una página web vacía
 Las aplicaciones web Java son implementadas a través de Servlets. Un Servlet es una clase que mejora la funcionalidad de un servidor web (los cuales usualmente alojan archivos tales como HTML, documentos e imágenes). Este mejoramiento podría incluir cualquier tipo de lógica del lado del servidor, por ejemplo: creación de un documento HTML dinámicamente para incluir contenido proveniente de una base de datos. Cuando tú incluyes Vaadin in tu proyecto, un `VaadinServlet` es automáticamente creado para ti. Este servlet nos permite crear una página web usando Java.
 
 NOTE: Si quieres ver donde esto ocurre, dale un vistazo a la clase https://github.com/vaadin/flow/blob/bb472c66871cd3c2677c36ece91e6263ce020d2d/flow-server/src/main/java/com/vaadin/flow/server/startup/ServletContextListeners.java[ServletContextListeners].
@@ -66,7 +66,7 @@ NOTE: El Plugin Maven de Jetty está configurado en el archivo `pom.xml`. Este p
 
 Apunta tu navegador web hacia `http://localhost:8080/vistaprincipal` para ver la página web vacía. Nada emocionante por el momento, pero tienes en ejecución una aplicación web Java.
 
-== # Llamando JavaScript.
+== Llamando JavaScript.
 Antes de llamar JavaScript desde Java, necesitamos configurar el archivo JavaScript en sí. Crear un nuevo archivo con el nombre `script.js` en el directorio `frontend` y escribe una función en él:
 
 frontend/script.js
@@ -123,7 +123,7 @@ Deberías ver el saludo en la consola del navegador web.
 
 image::saludar_navegador_consola.png[]
 
-== # Llamando Java
+== Llamando Java
 
 Ahora que esta funcionando la invocación de JavaScript desde Java, vamos a completar el circulo invocando un método Java desde una función JavaScript. Primero, necesitamos implementar un método Java. Implementemos una versión de saludar en Java de lado del servidor, agregando lo siguiente en la clase `VistaPrincipal`:
 
