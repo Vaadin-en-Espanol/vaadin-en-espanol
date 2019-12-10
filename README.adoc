@@ -17,6 +17,7 @@ Diego Cortes
 
 * https://github.com/Vaadin-en-Espanol/vaadin-en-espanol/blob/master/tutoriales/conceptos-clave-en-vaadin/contenido.adoc[Conceptos clave en Vaadin]
 * https://github.com/Vaadin-en-Espanol/vaadin-en-espanol/blob/master/tutoriales/vaadin-quick-start/contenido.adoc[Tutorial de inicio rápido con Vaadin]
+* https://github.com/Vaadin-en-Espanol/vaadin-en-espanol/blob/master/tutoriales/llamar-java-desde-javaScript/contenido.adoc[Invocando Java desde JavaScript]
 
 == ¿Cómo contribuir?
 
