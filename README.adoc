@@ -9,6 +9,8 @@ Alejandro Duarte
 
 Carlos Gustavo Nuñez
 
+Diego Cortes
+
 == Contenido
 
 === Tutoriales
