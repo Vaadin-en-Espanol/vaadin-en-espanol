@@ -9,7 +9,7 @@ En este tutorial, analizaremos la creación de un formulario básico que se vinc
 
 video::4G8jRyRoCgs[youtube]
 
-En este ejemplo, construiremos un sistema de pedidos de snacks. El formulario requiere que el usuario ingrese su nombre y la cantidad de snacks. Luego con un dropdown se selecciona el tipo de snack, este habilita y llena un segundo dropdown con los snacks de ese tipo. Una vez enviado, el objeto llenado se agrega a una lista y se muestra en una grilla.
+En este ejemplo, construiremos un sistema de pedidos de snacks. El formulario requiere que el usuario ingrese su nombre y la cantidad de snacks. Usando un dropdown para seleccionar el tipo de snack, este habilita y llena un segundo dropdown con los snacks de ese tipo. Una vez enviado, el objeto con sus datos se agrega a una lista y se muestra en una grilla.
 
 Los campos de la UI están vinculados a un objeto Java a través de la API `Binder` de Vaadin. El framework de Vaadin se encargará de toda la creación y comunicación HTML entre el servidor y el navegador, por lo cual no es necesario introducir servicios REST adicionales.
 
