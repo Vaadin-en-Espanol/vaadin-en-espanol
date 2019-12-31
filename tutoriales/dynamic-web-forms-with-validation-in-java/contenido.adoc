@@ -1,7 +1,5 @@
 = Contruyendo un formulario web dinámico con validación
 
-:description: Learn how to build a web form that binds to a POJO, applies validation to fields and dynamically changes based on user input. 
-:linkattrs: // enable link attributes, like opening in a new window
 :imagesdir: ./images/
 
 Al construir aplicaciones de negocios, el ingreso de datos es una de las tareas más comunes, es decir, formularios web vinculados a objetos de dominio o POJOs, validados a travez de complejas lógicas y finalmente persistidos en una base de datos o quizas con un REST en un servidor remoto. 
