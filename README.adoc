@@ -41,7 +41,7 @@ traducir. Incluye un enlace al original en la descripción.
 
 En los repositorios con el contenido original encontrarás los archivos en formato asciidoc:
 
-- Tutoriales: https://github.com/vaadin-learning-center/learning-content/tree/development/tutorials
+- Tutoriales: https://github.com/vaadin-learning-center/learning-content/tree/development/learn/tutorials
 - Documentación: https://github.com/vaadin/flow-and-components-documentation/tree/master/documentation
 
 Algunos puntos a tener en cuenta:
