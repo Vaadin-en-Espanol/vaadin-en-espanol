@@ -210,7 +210,7 @@ Finalmente, llama a `readBean` con un nuevo` SnackOrder`, para que el binder ten
 == Habilitar el botón Enviar solo cuando el formulario sea válido
 Cuando sea posible, es una buena práctica ayudar al usuario a hacer lo correcto. Al crear un formulario, podemos guiar al usuario al no habilitar el botón Order antes de que el formulario sea válido.
 
-Lograremos esto agregando un `StatusChangeListener` en el` Binder`. Justo después del código anterior, agrega lo siguiente dentro del método `buildForm`.
+Lograremos esto agregando un `StatusChangeListener` en el `Binder`. Justo después del código anterior, agrega lo siguiente dentro del método `buildForm`.
 
 .`*MainView.java*`
 [source,java]
@@ -257,7 +257,7 @@ orderButton.addClickListener(click -> {
 <5> Restablece la selección de tipo por separado, ya que no es uno de los campos enlazados.
 <6> Recopila los mensajes de error de validación y muéstralos en el layout de error.
 
-Agrega una lista de `SnackOrders` como un campo en` MainView` para realizar el seguimiento de los pedidos.
+Agrega una lista de `SnackOrders` como un campo en `MainView` para realizar el seguimiento de los pedidos.
 
 .`*MainView.java*`
 [source,java]
