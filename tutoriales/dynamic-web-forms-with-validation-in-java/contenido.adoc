@@ -2,7 +2,7 @@
 
 :imagesdir: ./images/
 
-Al construir aplicaciones de negocios, el ingreso de datos es una de las tareas más comunes, es decir, formularios web vinculados a objetos de dominio o POJOs, validados a travez de complejas lógicas y finalmente persistidos en una base de datos o quizas con un REST en un servidor remoto. 
+Al construir aplicaciones de negocios, el ingreso de datos es una de las tareas más comunes, es decir, formularios web vinculados a objetos de dominio o POJOs, validados a travez de complejas lógicas y finalmente persistidos en una base de datos o quizas sobre REST en un servidor remoto. 
 En este tutorial, analizaremos la creación de un formulario básico que se vincula a un simple objeto Java, validando a los campos de entrada, y cambiando dinámicamente en función de su estado.
 
 video::4G8jRyRoCgs[youtube]
