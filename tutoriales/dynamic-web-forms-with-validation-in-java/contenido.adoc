@@ -1,0 +1,287 @@
+= Construyendo un formulario web dinámico con validación
+
+:imagesdir: ./images/
+
+Al construir aplicaciones de negocios, el ingreso de datos es una de las tareas más comunes, es decir, formularios web vinculados a objetos de dominio o POJOs, validados a través de complejas lógicas y finalmente persistidos en una base de datos o quizás sobre REST en un servidor remoto. 
+En este tutorial, analizaremos la creación de un formulario básico que se vincula a un simple objeto Java, validando a los campos de entrada, y cambiando dinámicamente en función de su estado.
+
+video::4G8jRyRoCgs[youtube]
+
+En este ejemplo, construiremos un sistema de pedidos de `snacks`. El formulario requiere que el usuario ingrese su nombre y la cantidad de snacks. Usando un `dropdown` para seleccionar el tipo de snack, este habilita y llena un segundo dropdown con los snacks de ese tipo. Una vez enviado, el objeto con sus datos se agrega a una lista y se muestra en una grilla.
+
+Los campos de la UI están vinculados a un objeto Java a través de la API `Binder` de Vaadin. El framework de Vaadin se encargará de toda la creación y comunicación HTML entre el servidor y el navegador, por lo cual no es necesario introducir servicios REST adicionales.
+
+.El formulario muestra las opciones de snacks dinámicamente y agrega los pedidos en una grilla.
+image::dynamic-web-form-java.gif[Un formulario web dinámico para editar un objeto Java y mostrarlo en una grilla.]
+
+== Herramientas necesarias
+Este tutorial utiliza el framework de Vaadin, Maven, y simple Java.
+Para comenzar, https://vaadin.com/start/latest/project-base[baja un proyecto de comienzo de Vaadin].
+
+Importa el proyecto en un IDE de tú elección (ver instrucciones en https://vaadin.com/learn/tutorials/import-maven-project-intellij-idea[IntelliJ IDEA], https://vaadin.com/learn/tutorials/import-maven-project-eclipse[Eclipse], y https://vaadin.com/learn/tutorials/import-maven-project-netbeans[NetBeans]). 
+Una vez importado, elimina todos los archivos, excepto `MainView.java`. Borra la implementación de ese archivo. Debería quedar así:
+
+.`*MainView.java*`
+[source,java]
+----
+@Route("")
+public class MainView extends VerticalLayout {
+
+  public MainView() {
+
+  }
+}
+----
+
+Ya tenemos una base buena y limpia para comenzar a trabajar: un `VerticalLayout` que responde a la ruta vacía, que es la raíz del contexto y muestra su contenido apilado uno encima del otro.
+ 
+Además de la clase UI, necesitamos un POJO que sirva como modelo de datos. Crea una nueva clase Java `SnackOrder.java` en el mismo paquete que` MainLayout.java`.
+
+.`*SnackOrder.java*`
+[source,java]
+----
+public class SnackOrder {
+  private String name = "";
+  private String snack = "";
+  private Integer quantity = 1;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getSnack() {
+    return snack;
+  }
+
+  public void setSnack(String snack) {
+    this.snack = snack;
+  }
+
+  public Integer getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(Integer quantity) {
+    this.quantity = quantity;
+  }
+}
+----
+
+== Creando los componentes para el formulario y la grilla  
+Comienza creando y poniendo todos los componentes necesarios de la UI en la pantalla. La UI consta de dos partes principales: el formulario y la grilla. Y un encabezado.
+
+.`*MainView.java*`
+[source,java]
+----
+@Route("")
+public class MainView extends VerticalLayout {
+
+  private Grid<SnackOrder> snackOrderGrid = new Grid<>(SnackOrder.class);
+
+  public MainView() {
+    add(
+        new H1("Snack order"),
+        buildForm(),
+        snackOrderGrid);
+  }
+
+  private Component buildForm() {
+    // Create UI components <2>
+    TextField nameField = new TextField("Name");
+    TextField quantityField = new TextField("Quantity");
+    ComboBox<String> snackTypeSelect = new ComboBox<>("Type", Collections.emptyList());
+    ComboBox<String> snackSelect = new ComboBox<>("Snack", Collections.emptyList());
+    Button orderButton = new Button("Order");
+    Div errorsLayout = new Div();
+
+    // Configure UI components
+    orderButton.setThemeName("primary");
+
+    // Wrap components in layouts <3>
+    HorizontalLayout formLayout = new HorizontalLayout(nameField, quantityField, snackTypeSelect, snackSelect, orderButton);
+    Div wrapperLayout = new Div(formLayout, errorsLayout);
+    formLayout.setDefaultVerticalComponentAlignment(Alignment.BASELINE);
+    wrapperLayout.setWidth("100%");
+
+    return wrapperLayout;
+  }
+}
+----
+<1> En el nivel superior, tenemos tres componentes: el encabezado, el formulario y la grilla. La creación del formulario es complicada, por lo cual lo trasladamos a un método separado.
+<2> Crea componentes de UI para cada una de las propiedades en `SnackOrder`.
+<3> Define cómo se deben distribuir los componentes. `HorizontalLayout` muestra todos los campos uno al lado del otro, y el `Div` se ajusta al formulario y los mensajes de error los coloca uno encima del otro.
+
+Corre la aplicación a través de Maven:
+
+[source]
+mvn package jetty:run
+
+Navega a http://localhost:8080, y deberás ver lo siguiente:
+
+.Componentes de UI de formulario y grilla.
+image::java-form-and-grid-ui-components.png[Componentes de UI de formulario y grilla.]
+
+== Llenar dinámicamente un componente de selección basado en un valor del formulario
+Necesitamos algunas opciones de snacks para el pedido. Agrega el siguiente `Map` de opciones de snacks al comienzo del método `buildForm`:
+
+.`*MainView.java*`
+[source,java]
+----
+  private Component buildForm() {
+
+    Map<String, List<String>> snacks = new HashMap<>();
+    snacks.put("Fruits", Arrays.asList("Banana", "Apple", "Orange", "Avocado"));
+    snacks.put("Candy", Arrays.asList("Chocolate bar", "Gummy bears", "Granola bar"));
+    snacks.put("Drinks", Arrays.asList("Soda", "Water", "Coffee", "Tea"));
+
+    // remainder omitted ...
+  }
+----
+
+Cuando se actualice el selector del tipo de snack se mostrarán los diferentes tipos de snacks.
+
+[source, diff]
+----
+- ComboBox<String> snackTypeSelect = new ComboBox<>("Type", Collections.emptyList());
++ ComboBox<String> snackTypeSelect = new ComboBox<>("Type", snacks.keySet());
+----
+
+Continuando, primero deshabilita la selección de snack en el `ComboBox` y agrega un listener en el selector de tipo de snack que se usará para habilitarla con las opciones correctas según la selección del tipo.
+
+.`*MainView.java*`
+[source,java]
+----
+  private Component buildForm() {
+    // Field creation
+
+    // Only enable snack selection after a type has been selected.
+    // Populate the snack alternatives based on the type.
+    snackSelect.setEnabled(false);
+    snackTypeSelect.addValueChangeListener(e -> {
+      String type = e.getValue();
+      boolean enabled = type != null && !type.isEmpty();
+      snackSelect.setEnabled(enabled);
+      if (enabled) {
+        snackSelect.setValue("");
+        snackSelect.setItems(snacks.get(type));
+      }
+    });
+
+  }
+----
+
+Ahora, vuelve a ejecutar la aplicación, debes ver que los snacks se actualizaron dinámicamente según la selección del selector de tipo.
+
+== Vinculando un objeto Java con entradas del formulario
+Con los componentes de la UI en su lugar y el selector de tipo de snack funcionando, la siguiente tarea es vincularlos al modelo `SnackOrder` y definir las reglas de validación. Haremos esto usando la API `Binder` de Vaadin.
+
+.`*MainView.java*`
+[source,java]
+----
+  private Component buildForm() {
+    // Inputs and select logic
+    
+    Binder<SnackOrder> binder = new Binder<>(SnackOrder.class);
+    binder.forField(nameField)
+        .asRequired("Name is required")
+        .bind(SnackOrder::getName, SnackOrder::setName);
+    binder.forField(quantityField)
+        .asRequired()
+        .withConverter(new StringToIntegerConverter("Quantity must be a number"))
+        .withValidator(new IntegerRangeValidator("Quantity must be at least 1", 1, Integer.MAX_VALUE))
+        .bind(SnackOrder::getQuantity, SnackOrder::setQuantity);
+    binder.forField(snackSelect)
+        .asRequired("Please choose a snack")
+        .bind(SnackOrder::getSnack, SnackOrder::setName);
+    binder.readBean(new SnackOrder());
+  }
+----
+
+Primero, creamos un `Binder` del tipo `SnackOrder`. Luego lo usamos para vincular cada campo a una propiedad en `SnackOrder`. Las propiedades están vinculadas con referencias de métodos para seguridad de tipo.
+
+Para cada enlace, podrás configurar si es requerido o no, y opcionalmente agregar convertidores o validadores. Los convertidores convierten entre el valor de datos subyacente, por ejemplo, `Integer` para `order`, y el valor de presentación que es String. Los validadores validan la entrada contra una regla determinada. Vaadin viene con varios convertidores y validadores listos para usar en los casos mas comunes, y puedes escribir los tuyos para una validación más compleja o una conversión personalizada.
+
+Finalmente, llama a `readBean` con un nuevo` SnackOrder`, para que el binder tenga un lugar para escribir los valores.
+
+== Habilitar el botón Enviar solo cuando el formulario sea válido
+Cuando sea posible, es una buena práctica ayudar al usuario a hacer lo correcto. Al crear un formulario, podemos guiar al usuario al no habilitar el botón Order antes de que el formulario sea válido.
+
+Lograremos esto agregando un `StatusChangeListener` en el `Binder`. Justo después del código anterior, agrega lo siguiente dentro del método `buildForm`.
+
+.`*MainView.java*`
+[source,java]
+----
+binder.addStatusChangeListener(status -> {
+      // Workaround for https://github.com/vaadin/flow/issues/4988
+      boolean emptyFields = Stream.of("name", "quantity", "snack")
+          .flatMap(prop -> binder.getBinding(prop).stream())
+          .anyMatch(binding -> binding.getField().isEmpty());
+      orderButton.setEnabled(!status.hasValidationErrors() && !emptyFields);
+    }
+);
+----
+
+En el listener, queremos alternar la propiedad `enabled` del botón en función de `status.hasValidationErrors()`. Debido a https://github.com/vaadin/flow/issues/4988[a `bug` en la versión actual de Vaadin], también deberás verificar que todos los campos obligatorios no estén vacíos. Esto no será necesario una vez que se haya solucionado el error.
+
+== Guardar los valores del formulario en un objeto Java y mostrarlos en una grilla
+La parte final de la lógica guardará los datos del formulario en un objeto Java y mostrará la orden en la grilla que creamos al principio.
+
+Continua con el método `buildForm` agregando un listener al orderButton.
+
+.`*MainView.java*`
+[source,java]
+----
+orderButton.addClickListener(click -> {
+  try {
+    errorsLayout.setText(""); <1>
+    SnackOrder savedOrder = new SnackOrder();
+    binder.writeBean(savedOrder); <2>
+    addOrder(savedOrder); <3>
+    binder.readBean(new SnackOrder()); <4>
+    snackTypeSelect.setValue(""); <5>
+  } catch (ValidationException e) {
+    errorsLayout.add(new Html(e.getValidationErrors().stream()
+        .map(res -> "<p>" + res.getErrorMessage() + "</p>")
+        .collect(Collectors.joining("\n")))); <6>
+  }
+});
+----
+<1> Elimina cualquier error que pueda estar presente.
+<2> Escribe el contenido del formulario en un nuevo objeto `SnackOrder`.
+<3> Llama a un método (aún por definir) para agregar el pedido en la grilla.
+<4> Restablece los valores del formulario enlazado leyendo un nuevo objeto vacío, `SnackOrder`
+<5> Restablece la selección de tipo por separado, ya que no es uno de los campos enlazados.
+<6> Recopila los mensajes de error de validación y muéstralos en el layout de error.
+
+Agrega una lista de `SnackOrders` como un campo en `MainView` para realizar el seguimiento de los pedidos.
+
+.`*MainView.java*`
+[source,java]
+----
+private List<SnackOrder> snackOrders = new LinkedList<>();
+----
+
+NOTA: En una aplicación real, probablemente se guardaría el pedido en una base de datos y leería la lista de pedidos de una base de datos.
+
+Finalmente, implementa `addOrder` para agregar el pedido recién creado a la grilla.
+
+.`*MainView.java*`
+[source,java]
+----
+private void addOrder(SnackOrder order) {
+  snackOrders.add(order);
+  snackOrderGrid.setItems(snackOrders);
+}
+----
+
+Ejecuta la aplicación y pruebala. Ya puedes agregar nuevos pedidos a la grilla con el formulario dinámico que creaste.
+
+.La aplicación terminada.
+image::dynamic-web-form-java.gif[La aplicación terminada.]
+
+== Conclusión
+Ahora sabes cómo crear un formulario web para rellenar un objeto Java y mostrarlo. Puedes encontrar el código fuente completo en GitHub a continuación.
