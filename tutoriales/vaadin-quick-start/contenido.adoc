@@ -1,4 +1,5 @@
 = Tutorial de inicio rápido con Vaadin
+
 _Traducido del https://vaadin.com/tutorials/vaadin-quick-start[original en Inglés]
 
 En este tutorial, podrás aprender como construir una aplicación Vaadin pequeña, pero totalmente funcional. Este ejemplo te enseñará lo básico del desarrollo basado en componentes y manejo de eventos. 
