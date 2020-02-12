@@ -18,6 +18,7 @@ Diego Cortes
 * https://github.com/Vaadin-en-Espanol/vaadin-en-espanol/blob/master/tutoriales/conceptos-clave-en-vaadin/contenido.adoc[Conceptos clave en Vaadin]
 * https://github.com/Vaadin-en-Espanol/vaadin-en-espanol/blob/master/tutoriales/vaadin-quick-start/contenido.adoc[Tutorial de inicio rápido con Vaadin]
 * https://github.com/Vaadin-en-Espanol/vaadin-en-espanol/blob/master/tutoriales/llamar-java-desde-javaScript/contenido.adoc[Invocando Java desde JavaScript]
+* https://github.com/Vaadin-en-Espanol/vaadin-en-espanol/blob/master/tutoriales/dynamic-web-forms-with-validation-in-java/contenido.adoc[Construyendo un formulario web dinámico con validación]
 
 == ¿Cómo contribuir?
 
