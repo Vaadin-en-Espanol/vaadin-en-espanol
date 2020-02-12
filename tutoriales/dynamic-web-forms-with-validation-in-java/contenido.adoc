@@ -1,5 +1,7 @@
 = Construyendo un formulario web dinámico con validación
 
+_Traducido del https://vaadin.com/learn/tutorials/dynamic-web-forms-with-validation-in-java[original en Inglés]._
+
 :imagesdir: ./images/
 
 Al construir aplicaciones de negocios, el ingreso de datos es una de las tareas más comunes, es decir, formularios web vinculados a objetos de dominio o POJOs, validados a través de complejas lógicas y finalmente persistidos en una base de datos o quizás sobre REST en un servidor remoto. 
